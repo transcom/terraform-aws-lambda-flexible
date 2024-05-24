@@ -11,7 +11,7 @@ Creates the following resources:
 
 ```hcl
 module "my_lambda_function" {
-  source                 = "trussworks/lambda/aws"
+  source                 = "transcom/lambda/aws"
   name                   = "my_app"
   job_identifier         = "instance_alpha"
   runtime                = "go1.x"
@@ -85,7 +85,7 @@ No modules.
 | <a name="input_env_vars"></a> [env\_vars](#input\_env\_vars) | Map of environment variables for Lambda function | `map(any)` | `{}` | no |
 | <a name="input_ephemeral_storage"></a> [ephemeral\_storage](#input\_ephemeral\_storage) | Size in MB of Lambda function ephemeral storage allocation | `string` | `512` | no |
 | <a name="input_github_filename"></a> [github\_filename](#input\_github\_filename) | Name of the file to get when building url to pull. | `string` | `"deployment.zip"` | no |
-| <a name="input_github_project"></a> [github\_project](#input\_github\_project) | The unique Github project to pull from. Currently, this must be public. Eg. 'trussworks/aws-iam-sleuth' | `string` | `""` | no |
+| <a name="input_github_project"></a> [github\_project](#input\_github\_project) | The unique Github project to pull from. Currently, this must be public. Eg. 'transcom/aws-iam-sleuth' | `string` | `""` | no |
 | <a name="input_github_release"></a> [github\_release](#input\_github\_release) | The release tag to download. | `string` | `""` | no |
 | <a name="input_handler"></a> [handler](#input\_handler) | The entrypoint function for the lambda function. | `string` | `"main.Main"` | no |
 | <a name="input_job_identifier"></a> [job\_identifier](#input\_job\_identifier) | Identifier for specific instance of Lambda function | `string` | n/a | yes |
