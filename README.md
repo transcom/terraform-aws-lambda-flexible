@@ -4,8 +4,7 @@ will log to Cloudwatch Logs.
 Creates the following resources:
 
 * Lambda function
-* IAM role with policy to allow logging to Cloudwatch Logs
-* Cloudwatch Logs group
+* IAM role with policy to allow logging to Cloudwatch Logs - with the anticipation that these logs are declared as an individual resource
 
 ## Usage
 
@@ -34,6 +33,11 @@ module "my_lambda_function" {
     "Service" = "big_app"
   }
 
+}
+
+# Remember to define the CloudWatch log group separately
+resource "aws_cloudwatch_log_group" "my_lambda_logs" {
+  ...
 }
 ```
 

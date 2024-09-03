@@ -80,21 +80,9 @@ resource "aws_iam_role_policy_attachment" "user_policy_attach" {
   policy_arn = var.role_policy_arns[count.index]
 }
 
-# Cloudwatch Logs
-resource "aws_cloudwatch_log_group" "main" {
-  name              = "/aws/lambda/${local.full_name}"
-  retention_in_days = var.cloudwatch_logs_retention_days
-  # set the key, else empty string
-  kms_key_id = var.cloudwatch_encryption_key_arn
-  tags = {
-    Name = local.full_name
-  }
-}
-
 # Lambda function from s3
 resource "aws_lambda_function" "main_from_s3" {
-  count      = local.from_github ? 0 : 1
-  depends_on = [aws_cloudwatch_log_group.main]
+  count = local.from_github ? 0 : 1
 
   s3_bucket = var.s3_bucket
   s3_key    = var.s3_key
@@ -138,9 +126,8 @@ resource "null_resource" "get_github_release_artifact" {
 
 # Only on Lambda function from github
 resource "aws_lambda_function" "main_from_gh" {
-  count = local.from_github ? 1 : 0
-  depends_on = [aws_cloudwatch_log_group.main,
-  null_resource.get_github_release_artifact]
+  count      = local.from_github ? 1 : 0
+  depends_on = [null_resource.get_github_release_artifact]
 
   filename         = var.github_filename
   source_code_hash = var.validation_sha
